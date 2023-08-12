@@ -28,7 +28,7 @@ const CertsRemainders = () => {
     const [certs, setCerts] = useState({
         name: '',
         description: '',
-        url: '',
+     
         toDate: '',
         endDate: '',
     });
@@ -38,7 +38,6 @@ const CertsRemainders = () => {
   const appointments = [
     {
       patientName: 'Elsie Gilley',
-      avatarUrl: 'assets/img/patients/patient6.jpg',
       apptDate: '14 Nov 2019',
       apptTime: '6.00 PM',
       purpose: 'Fever',
@@ -91,36 +90,30 @@ const handleSubmit = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Patient Name</TableCell>
-                  <TableCell>Appt Date</TableCell>
-                  <TableCell>Purpose</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell align="center">Paid Amount</TableCell>
-                  <TableCell></TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>To Date</TableCell>
+                  <TableCell>End Date</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {appointments.map((appointment, index) => (
                   <TableRow key={index}>
                     <TableCell>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <Avatar
-                          src={appointment.avatarUrl}
-                          alt="User Image"
-                          style={{ marginRight: 10 }}
-                        />
+                    
+                      
                         <div>
                           <Link
-                            to="patient-profile.html"
+                            to=""
                             style={{ color: '#1976d2', textDecoration: 'none' }}
                           >
                             <Typography variant="subtitle1">
-                              {appointment.patientName}{' '}
-                              <span style={{ color: '#666' }}>#{`PT00${index + 6}`}</span>
+                              {appointment.patientName}
+                              
                             </Typography>
                           </Link>
                         </div>
-                      </div>
+                      
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle1">
@@ -136,9 +129,7 @@ const handleSubmit = () => {
                     <TableCell>
                       <Typography variant="body1">{appointment.type}</Typography>
                     </TableCell>
-                    <TableCell align="center">
-                      <Typography variant="body1">{appointment.paidAmount}</Typography>
-                    </TableCell>
+                   
                    
                   </TableRow>
                 ))}
@@ -179,14 +170,6 @@ const handleSubmit = () => {
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
                     />
 
-                    <TextField
-                        label="URL"
-                        name="url"
-                        value={certs.url}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                    />
                     <TextField
                         label="To Date"
                         name="toDate"

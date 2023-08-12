@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom'; // Assuming you're using React Router f
 const Dashboard = () => {
 
     const websiteLinks = [
-        { name: 'Apple', url: 'https://apple.com', },
+        { name: 'Facebook', url: 'https://facebook.com', },
         { name: 'Hiexpert', url: 'https://hiexpert.tech/', },
         { name: 'Microsoft', url: 'https://microsoft.com', },
         // Add more links as needed
@@ -33,8 +33,7 @@ const Dashboard = () => {
         name: '',
         description: '',
         url: '',
-        toDate: '',
-        endDate: '',
+       
     });
 
 
@@ -175,24 +174,8 @@ const Dashboard = () => {
                         fullWidth
                         margin="normal"
                     />
-                    <TextField
-                        label="To Date"
-                        name="toDate"
-                        type="date"
-                        value={newService.toDate}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                    />
-                    <TextField
-                        label="End Date"
-                        name="endDate"
-                        type="date"
-                        value={newService.endDate}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                    />
+                 
+                   
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
                         <Button onClick={handleModalClose} color="primary">
                             Close

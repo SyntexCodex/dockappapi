@@ -21,7 +21,8 @@ const Navbar = () => {
     <StyledAppBar position="static" color="primary">
         
       <Toolbar sx={{ display : 'flex' , justifyContent : 'space-between' }}>
-        <Typography variant="h6">DuckAppApi</Typography>
+        <Link to="/" color='white' className='Logotext'>  <Typography  variant="h6">DuckAppApi</Typography></Link>
+       
         <Link to="/" style={{ textDecoration: 'none' }}>
       <IconButton aria-label="fingerprint" color="secondary">
         <Fingerprint sx={{ fontSize: 36 }} />
