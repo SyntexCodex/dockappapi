@@ -1,5 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   Card,
   CardContent,
@@ -25,68 +28,65 @@ import { Link } from 'react-router-dom'; // Assuming you're using React Router f
 
 const CertsRemainders = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [certs, setCerts] = useState({
-        name: '',
-        description: '',
-     
-        toDate: '',
-        endDate: '',
-    });
+    const [certs, setCerts]  = useState ([])
+
+    useEffect(()=>{
+      axios.get("https://mocki.io/v1/b9eaa918-704d-49e3-9180-142367bae413").then((res)=>{
+        setCerts(res.data)
+      }).catch((error)=>{
+          console.log(error)
+      })
+  
+  },[])
 
 
-   
-  const appointments = [
-    {
-      patientName: 'Elsie Gilley',
-      apptDate: '14 Nov 2019',
-      apptTime: '6.00 PM',
-      purpose: 'Fever',
-      type: 'Old Patient',
-      paidAmount: '$300',
-    },
-    // ... Add more appointments
-  ];
   const handleModalOpen = () => {
     setIsModalOpen(true);
 };
+const [name, setName] = useState ("")
+    const [description, setDescription] = useState ("")
+    const [url, setUrl] = useState ("")
+    const [toDate, setToDate] = useState ("")
+    const [endDate, setEndDate] = useState ("")
+
+
+    const handleSubmit = () => {
+     
+      console.log(name, description, toDate, endDate);
+      const data = {name, description, toDate, endDate}
+      
+      axios.post("http://localhost:8080/api/remainder" , data).then((res)=>{
+          toast.success("Operation completed successfully!");
+      }).catch((error)=>{
+          console.log(error)
+      })
+      
+      handleModalClose();
+  };
 
 const handleModalClose = () => {
     setIsModalOpen(false);
-    setCerts({
-        name: '',
-        description: '',
-        url: '',
-        toDate: '',
-        endDate: '',
-    });
+    setDescription("")
+        setUrl("")
+        setName("")
+        setToDate("")
+        setEndDate("")
 };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCerts((prevService) => ({
-        ...prevService,
-        [name]: value,
-    }));
-};
 
-const handleSubmit = () => {
-    // Handle saving the new service data
-    console.log('New remainder:', certs);
-    handleModalClose();
-};
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor : "#fff"}}>
   
      
 
           <Container maxWidth="lg" style={{ width: '90%', margin: '0 auto', marginTop: '100px' }}>
           <Box sx={{ display: 'flex', justifyContent: "flex-end", flexDirection: "flex-direction" }} >
-                        <Button variant="contained" onClick={handleModalOpen} size="small" sx={{ padding: 1, marginLeft: 2, width: '15%' }}> Add New Remainder</Button>
+                        <Button variant="outlined" onClick={handleModalOpen} size="small" sx={{ padding: 1, marginLeft: 2, width: '15%', color: "#000000", border: "1px solid #000000" }}> Add New Remainder</Button>
                     </Box>
       <Card sx={{marginTop:2}}>
         <CardContent>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{ boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -97,37 +97,28 @@ const handleSubmit = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {appointments.map((appointment, index) => (
+                {certs.map((cert, index) => (
                   <TableRow key={index}>
                     <TableCell>
                     
                       
                         <div>
-                          <Link
-                            to=""
-                            style={{ color: '#1976d2', textDecoration: 'none' }}
-                          >
-                            <Typography variant="subtitle1">
-                              {appointment.patientName}
-                              
-                            </Typography>
-                          </Link>
+                            <Typography variant="subtitle1"> {cert.name} </Typography>
+                       
                         </div>
                       
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle1">
-                        {appointment.apptDate}
+                        {cert.description}
                       </Typography>
-                      <Typography variant="body2" color="textSecondary">
-                        {appointment.apptTime}
-                      </Typography>
+                      
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body1">{appointment.purpose}</Typography>
+                      <Typography variant="body1">{cert.toDate}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body1">{appointment.type}</Typography>
+                      <Typography variant="body1">{cert.endDate}</Typography>
                     </TableCell>
                    
                    
@@ -153,8 +144,8 @@ const handleSubmit = () => {
                     <TextField
                         label="Name"
                         name="name"
-                        value={certs.name}
-                        onChange={handleInputChange}
+                        value={name}
+                        onChange={(e)=>{setName(e.target.value)}}
                         fullWidth
                         margin="normal"
                     />
@@ -162,20 +153,20 @@ const handleSubmit = () => {
                     <TextareaAutosize
                         aria-label="Description"
                         name="description"
-                        value={certs.description}
-                        onChange={handleInputChange}
+                        value={description}
+                        onChange={(e)=>{setDescription(e.target.value)}}
                         placeholder="Description"
                         minRows={7}
                         maxRows={100}
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                        style={{ width: '100%', backgroundColor: "#1e1e1e" ,padding: '8px', borderRadius: '4px',color : "#fff" , border:  '1px solid #ccc' }}
                     />
 
                     <TextField
                         label="To Date"
                         name="toDate"
                         type="date"
-                        value={certs.toDate}
-                        onChange={handleInputChange}
+                        value={toDate}
+                        onChange={(e)=>{setToDate(e.target.value)}}
                         fullWidth
                         margin="normal"
                     />
@@ -183,8 +174,8 @@ const handleSubmit = () => {
                         label="End Date"
                         name="endDate"
                         type="date"
-                        value={certs.endDate}
-                        onChange={handleInputChange}
+                        value={endDate}
+                        onChange={(e)=>{setEndDate(e.target.value)}}
                         fullWidth
                         margin="normal"
                     />

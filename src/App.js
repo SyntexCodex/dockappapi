@@ -4,18 +4,24 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
 import CertsRemainders from './Pages/Certs-reminders';
 import Navbar from './components/Navbar';
-import Login from './Pages/Login';
-import SignUp from './Pages/Signup';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 function App() {
   return (
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
     <div className="App">
       <BrowserRouter>
       <Navbar/>
       <Routes>
-      <Route path='/' element={<Login />} />
-      <Route path='/signup' element={<SignUp />} />
-      <Route path='/dashboard' element={<Dashboard />} />
+      
+      <Route path='/' element={<Dashboard />} />
       <Route path='/certs-and-remainders' element={<CertsRemainders />} />
       </Routes>
      
@@ -24,6 +30,7 @@ function App() {
     </BrowserRouter>
      
     </div>
+    </ThemeProvider>
   );
 }
 

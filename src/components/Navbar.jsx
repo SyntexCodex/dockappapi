@@ -3,8 +3,6 @@ import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Fingerprint from '@mui/icons-material/Fingerprint';
 import { Link } from 'react-router-dom';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -23,11 +21,7 @@ const Navbar = () => {
       <Toolbar sx={{ display : 'flex' , justifyContent : 'space-between' }}>
         <Link to="/" color='white' className='Logotext'>  <Typography  variant="h6">DuckAppApi</Typography></Link>
        
-        <Link to="/" style={{ textDecoration: 'none' }}>
-      <IconButton aria-label="fingerprint" color="secondary">
-        <Fingerprint sx={{ fontSize: 36 }} />
-      </IconButton>
-    </Link>
+     
   
       </Toolbar>
      
